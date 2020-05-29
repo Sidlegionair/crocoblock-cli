@@ -45,18 +45,13 @@ class Crocoblock_CLI extends WP_CLI_Command
 
     public function getMostRecentCallback($className) {
         $methods = get_class_methods($className);
-        $has_do_update = array_search('do_update', $methods);
-        if($has_do_update !== false) {
-            return $has_do_update;
-        } else {
-            $method_versions = preg_replace('/[^0-9]/', '', get_class_methods($className));
-            foreach($method_versions as $key => $version) {
-                if (strlen($version) > 3) {
-                    $method_versions[$key] = mb_strimwidth($version, 0, 3, '');
-                }
+        $method_versions = preg_replace('/[^0-9]/', '', get_class_methods($className));
+        foreach($method_versions as $key => $version) {
+            if (strlen($version) > 3) {
+                $method_versions[$key] = mb_strimwidth($version, 0, 3, '');
             }
-            $highest_version_key = array_keys($method_versions, max($method_versions));
         }
+        $highest_version_key = array_keys($method_versions, max($method_versions));
         return $methods[$highest_version_key[0]];
 
 
