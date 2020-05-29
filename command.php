@@ -24,7 +24,7 @@ class Crocoblock_CLI extends WP_CLI_Command
     }
 
 
-    public function processUpdate($className, $plugin_name) {
+    private function processUpdate($className, $plugin_name) {
         if (file_exists(WP_PLUGIN_DIR . "/{$plugin_name}/includes/class-{$plugin_name}-db-upgrader.php")) {
             require_once(WP_PLUGIN_DIR . "/{$plugin_name}/includes/class-{$plugin_name}-db-upgrader.php");
             if (class_exists($className)) {
