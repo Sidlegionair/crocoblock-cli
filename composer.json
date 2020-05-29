@@ -1,5 +1,5 @@
 {
-    "name": "onetap/crocoblock-cli",
+    "name": "Sidlegionair/crocoblock-cli",
     "type": "wp-cli-package",
     "description": "Add a `wp crocoblock` command to support the Crocoblock plugins",
     "keywords": ["wp-cli", "crocoblock"],
