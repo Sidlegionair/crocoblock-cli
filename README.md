@@ -11,7 +11,7 @@ Currently supported commands:
 If you're using WP-CLI v0.23.0 or later, you can install this package with:
 
 ```
-wp package install onetap/crocoblock-cli
+wp package install Sidlegionair/crocoblock-cli
 ```
 
 ## Changelog
