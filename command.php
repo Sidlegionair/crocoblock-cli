@@ -14,6 +14,7 @@ class Crocoblock_CLI extends WP_CLI_Command
      */
     public function update()
     {
+        // Circumvent direct file call.
         define('WPINC', 'wp-includes');
 
         $this->processUpdate('Jet_Woo_Builder_DB_Upgrader', 'jet-woo-builder');
@@ -31,7 +32,9 @@ class Crocoblock_CLI extends WP_CLI_Command
                 try {
                     $most_recent_callback = $this->getMostRecentCallback($className);
                     WP_CLI::log('Executing '.$most_recent_callback);
+                    // Get instance for class
                     $instance = call_user_func(array($className, 'get_instance'));
+                    // Execute most recent update function
                     $instance->$most_recent_callback;
                     WP_CLI::log("Finished {$className}");
                 } catch (Exception $exception) {
@@ -44,13 +47,17 @@ class Crocoblock_CLI extends WP_CLI_Command
     }
 
     public function getMostRecentCallback($className) {
+        // Get all methods in class
         $methods = get_class_methods($className);
+        // Strip everything but numbers
         $method_versions = preg_replace('/[^0-9]/', '', get_class_methods($className));
+        // To prevent minor update versions from interfering with major ones strip it down to three numbers.
         foreach($method_versions as $key => $version) {
             if (strlen($version) > 3) {
                 $method_versions[$key] = mb_strimwidth($version, 0, 3, '');
             }
         }
+        // Get array key for highest number
         $highest_version_key = array_keys($method_versions, max($method_versions));
         return $methods[$highest_version_key[0]];
 
