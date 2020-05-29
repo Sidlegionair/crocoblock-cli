@@ -46,7 +46,7 @@ class Crocoblock_CLI extends WP_CLI_Command
 
     }
 
-    public function getMostRecentCallback($className) {
+    private function getMostRecentCallback($className) {
         // Get all methods in class
         $methods = get_class_methods($className);
         // Strip everything but numbers
